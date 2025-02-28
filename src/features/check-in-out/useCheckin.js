@@ -14,11 +14,11 @@ export function useCheckin() {
         ...breakfast,
       }),
     onSuccess: (data) => {
-      toast.success(`Booking #${data.id} successfully checked in`);
+      toast.success(`Бронирование #${data.id} успешно оформлено`);
       queryClient.invalidateQueries({ active: true });
       navigate('/');
     },
-    onError: () => toast.error('There was an error while checking in'),
+    onError: () => toast.error('Ошибка в регистрации'),
   });
 
   return { checkin, isCheckingIn };

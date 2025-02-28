@@ -13,13 +13,12 @@ export function useLogin() {
         password,
       }),
     onSuccess: (user) => {
-      console.log(user);
-      queryClient.setQueryData(['user'], user.user);
+           queryClient.setQueryData(['user'], user.user);
       navigate('/dashboard', { replace: true });
     },
     onError: (err) => {
       console.log('ERROR', err);
-      toast.error('Provided email or password incorrect');
+      toast.error('Пароль или email неверны	');
     },
   });
   return { login, isLoading };

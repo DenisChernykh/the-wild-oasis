@@ -8,22 +8,31 @@ function BookingTableOperations() {
       <Filter
         filterField="status"
         options={[
-          { value: 'all', label: 'All' },
-          { value: 'checked-out', label: 'Checked out' },
-          { value: 'checked-in', label: 'Checked in' },
-          { value: 'unconfirmed', label: 'Unconfirmed' },
+          { value: 'all', label: 'Все' },
+          { value: 'checked-out', label: 'Выезд' },
+          { value: 'checked-in', label: 'Зарегестрирован' },
+          { value: 'unconfirmed', label: 'Не подтврежден' },
         ]}
       />
 
       <SortBy
         options={[
-          { value: 'startDate-desc', label: 'Sort by date (recent first)' },
-          { value: 'startDate-asc', label: 'Sort by date (earlier first)' },
+          {
+            value: 'startDate-desc',
+            label: 'Сортировать по дате (сначала поздние)',
+          },
+          {
+            value: 'startDate-asc',
+            label: 'Сортировать по дате (сначала ранние)',
+          },
           {
             value: 'totalPrice-desc',
-            label: 'Sort by amount (high first)',
+            label: 'Сортировать по цене (сначала высокая)',
           },
-          { value: 'totalPrice-asc', label: 'Sort by amount (low first)' },
+          {
+            value: 'totalPrice-asc',
+            label: 'Сортировать по цене (сначала низкая)',
+          },
         ]}
       />
     </TableOperations>

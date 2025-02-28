@@ -11,12 +11,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import {
-  eachDayOfInterval,
-  format,
-  isSameDay,
-  subDays,
-} from 'date-fns';
+import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -38,27 +34,11 @@ function SalesChart({ bookings, numDays }) {
     return {
       label: format(date, 'MMM dd '),
       totalSales: bookings
-        .filter((booking) =>
-          isSameDay(
-            date,
-            new Date(booking.created_at)
-          )
-        )
-        .reduce(
-          (acc, cur) => acc + cur.totalPrice,
-          0
-        ),
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, cur) => acc + cur.totalPrice, 0),
       extrasSales: bookings
-        .filter((booking) =>
-          isSameDay(
-            date,
-            new Date(booking.created_at)
-          )
-        )
-        .reduce(
-          (acc, cur) => acc + cur.extrasPrice,
-          0
-        ),
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, cur) => acc + cur.extrasPrice, 0),
     };
   });
 
@@ -91,15 +71,10 @@ function SalesChart({ bookings, numDays }) {
   return (
     <StyledSalesChart>
       <Heading as="h2">
-        Sales from{' '}
-        {format(allDates.at(0), 'MMM dd yyyy')}{' '}
-        &mdash;{' '}
-        {format(allDates.at(-1), 'MMM dd yyyy')}{' '}
+        Продажи с {format(allDates.at(0), 'MMM dd yyyy', { locale: ru })}{' '}
+        &mdash; {format(allDates.at(-1), 'MMM dd yyyy', { locale: ru })}{' '}
       </Heading>
-      <ResponsiveContainer
-        height={300}
-        width="100%"
-      >
+      <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
             dataKey="label"

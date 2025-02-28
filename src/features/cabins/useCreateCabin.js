@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { createEditCabin } from '../../services/apiCabins';
 
-
 export function useCreateCabin() {
   const queryClient = useQueryClient();
 
@@ -10,9 +9,8 @@ export function useCreateCabin() {
     mutationFn: createEditCabin,
     onError: (err) => toast.error(err.message),
     onSuccess: () => {
-      toast.success('Cabin successfully created');
+      toast.success('Жилье успешно создано');
       queryClient.invalidateQueries({ queryKey: ['cabins'] });
-
     },
   });
   return { createCabin, isCreating };

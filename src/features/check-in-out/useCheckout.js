@@ -11,10 +11,10 @@ export function useCheckout() {
         status: 'checked-out',
       }),
     onSuccess: (data) => {
-      toast.success(`Booking #${data.id} successfully checked out`);
+      toast.success(`Бронирование #${data.id} успешно завершено`);
       queryClient.invalidateQueries({ active: true });
     },
-    onError: () => toast.error('There was an error while checking out'),
+    onError: () => toast.error('Произошла ошибка при выезде'),
   });
 
   return { checkout, isCheckingOut };

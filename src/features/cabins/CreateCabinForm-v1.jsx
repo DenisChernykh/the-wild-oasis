@@ -14,11 +14,11 @@ function CreateCabinForm() {
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
   const queryClient = useQueryClient();
-  console.log(errors);
+
   const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: createCabin,
     onSuccess: () => {
-      toast.success('New cabin successfully created');
+      toast.success('Новое жилье успешно создано');
       queryClient.invalidateQueries({ queryKey: ['cabins'] });
       reset();
     },
@@ -62,7 +62,7 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow label="Regular price" error={errors?.regularPrice?.message}>
+      <FormRow label="Цена" error={errors?.regularPrice?.message}>
         <Input
           type="number"
           disabled={isCreating}
@@ -86,13 +86,18 @@ function CreateCabinForm() {
           {...register('discount', {
             required: 'This field is required',
             valueAsNumber: true,
-            validate: (value) => value <= getValues().regularPrice || 'Discount should be less than regular price',
+            validate: (value) =>
+              value <= getValues().regularPrice ||
+              'Discount should be less than regular price',
           })}
           defaultValue={0}
         />
       </FormRow>
 
-      <FormRow label="Description for website" error={errors?.description?.message}>
+      <FormRow
+        label="Description for website"
+        error={errors?.description?.message}
+      >
         <Textarea
           type="number"
           disabled={isCreating}

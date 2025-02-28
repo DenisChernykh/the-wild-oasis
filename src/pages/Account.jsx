@@ -6,15 +6,15 @@ import UpdatePasswordForm from '../features/authentication/UpdatePasswordForm';
 function Account() {
   return (
     <>
-      <Heading as="h1">Update your account</Heading>
+      <Heading as="h1">Обновление аккаунта</Heading>
 
       <Row>
-        <Heading as="h3">Update user data</Heading>
+        <Heading as="h3">Обновить пользовательские данные</Heading>
         <UpdateUserDataForm />
       </Row>
 
       <Row>
-        <Heading as="h3">Update password</Heading>
+        <Heading as="h3">Обновить пароль</Heading>
         <UpdatePasswordForm />
       </Row>
     </>

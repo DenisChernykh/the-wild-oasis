@@ -50,10 +50,10 @@ function UpdateUserDataForm() {
   return (
     <SpinnerOverlay isLoading={isUpdating}>
       <Form onSubmit={handleSubmit}>
-        <FormRow label="Email address">
+        <FormRow label="Email">
           <Input value={email} disabled />
         </FormRow>
-        <FormRow label="Full name">
+        <FormRow label="Полное имя">
           <Input
             type="text"
             value={fullName}
@@ -64,7 +64,7 @@ function UpdateUserDataForm() {
             disabled={isUpdating}
           />
         </FormRow>
-        <FormRow label="Avatar image">
+        <FormRow label="Аватар">
           <FileInput
             id="avatar"
             accept="image/*"
@@ -80,10 +80,10 @@ function UpdateUserDataForm() {
             disabled={isUpdating}
             onClick={handleCancel}
           >
-            Cancel
+            Отмена
           </Button>
           <Button disabled={isUpdating}>
-            Update account
+            Обновить данные
           </Button>
         </FormRow>
       </Form>

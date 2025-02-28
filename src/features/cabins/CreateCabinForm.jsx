@@ -53,90 +53,104 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? 'modal' : 'regular'}>
-      <FormRow label="Cabin name" error={errors?.name?.message}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? 'modal' : 'regular'}
+    >
+      <FormRow label="Название жилья" error={errors?.name?.message}>
         <Input
           disabled={isWorking}
           required
           type="text"
           id="name"
           {...register('name', {
-            required: 'This field is required',
+            required: 'Это поле обязательно',
           })}
         />
       </FormRow>
 
-      <FormRow label="Maximum capacity" error={errors?.maxCapacity?.message}>
+      <FormRow
+        label="Максимальная вместимость"
+        error={errors?.maxCapacity?.message}
+      >
         <Input
           type="number"
           disabled={isWorking}
           id="maxCapacity"
           {...register('maxCapacity', {
-            required: 'This field is required',
+            required: 'Это поле обязательное',
             min: {
               value: 1,
-              message: 'Capacity should be at least 1',
+              message: 'Вместимость должна быть не менее 1 гостя',
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Regular price" error={errors?.regularPrice?.message}>
+      <FormRow label="Цена" error={errors?.regularPrice?.message}>
         <Input
           type="number"
           disabled={isWorking}
           id="regularPrice"
           {...register('regularPrice', {
-            required: 'This field is required',
+            required: 'Это обязательное поле',
             valueAsNumber: true,
             min: {
               value: 1,
-              message: 'Price should be at least 1',
+              message: 'Цена должна быть не менее 1',
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="discount" error={errors?.discount?.message}>
+      <FormRow label="Скидка" error={errors?.discount?.message}>
         <Input
           type="number"
           id="discount"
           disabled={isWorking}
           {...register('discount', {
-            required: 'This field is required',
+            required: 'Это поле обязательное',
             valueAsNumber: true,
-            validate: (value) => value <= getValues().regularPrice || 'Discount should be less than regular price',
+            validate: (value) =>
+              value <= getValues().regularPrice ||
+              'Скидка должна быть меньше или равна обычной цене',
           })}
           defaultValue={0}
         />
       </FormRow>
 
-      <FormRow label="Description for website" error={errors?.description?.message}>
+      <FormRow label="Описание для сайта" error={errors?.description?.message}>
         <Textarea
           type="number"
           disabled={isWorking}
           id="description"
-          {...register('description', { required: 'This field is required' })}
+          {...register('description', { required: 'Это поле обязательное' })}
           defaultValue=""
         />
       </FormRow>
 
-      <FormRow label="Cabin photo">
+      <FormRow label="Фото жилья">
         <FileInput
           id="image"
           accept="image/*"
           {...register('image', {
-            required: isEditSession ? false : 'This field is required',
+            required: isEditSession ? false : 'Это поле обязатльное',
           })}
         />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button onClick={() => onCloseModal?.()} $variation="secondary" type="reset">
+        <Button
+          onClick={() => onCloseModal?.()}
+          $variation="secondary"
+          type="reset"
+        >
           Cancel
         </Button>
-        <Button disabled={isWorking}>{isEditSession ? 'Edit cabin' : 'Create new cabin'}</Button>
+        <Button disabled={isWorking}>
+          {isEditSession ? 'Изменить жилье' : 'Добавить жилье'}
+        </Button>
       </FormRow>
     </Form>
   );

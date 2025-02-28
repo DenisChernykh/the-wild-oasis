@@ -1,10 +1,10 @@
-import { useForm } from "react-hook-form";
-import Button from "../../ui/Button";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
+import { useForm } from 'react-hook-form';
+import Button from '../../ui/Button';
+import Form from '../../ui/Form';
+import FormRow from '../../ui/FormRow';
+import Input from '../../ui/Input';
 
-import { useUpdateUser } from "./useUpdateUser";
+import { useUpdateUser } from './useUpdateUser';
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -19,7 +19,7 @@ function UpdatePasswordForm() {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
-        label="Password (min 8 characters)"
+        label="Пароль (минимум 6 символов)"
         error={errors?.password?.message}
       >
         <Input
@@ -27,18 +27,18 @@ function UpdatePasswordForm() {
           id="password"
           autoComplete="current-password"
           disabled={isUpdating}
-          {...register("password", {
-            required: "This field is required",
+          {...register('password', {
+            required: 'Это поле обязательное',
             minLength: {
-              value: 8,
-              message: "New password needs a minimum of 8 characters",
+              value: 6,
+              message: 'Новый пароль должен быть не менее 6 символов',
             },
           })}
         />
       </FormRow>
 
       <FormRow
-        label="Confirm password"
+        label="Подтверждение пароля"
         error={errors?.passwordConfirm?.message}
       >
         <Input
@@ -46,18 +46,18 @@ function UpdatePasswordForm() {
           autoComplete="new-password"
           id="passwordConfirm"
           disabled={isUpdating}
-          {...register("passwordConfirm", {
-            required: "This field is required",
+          {...register('passwordConfirm', {
+            required: 'Это поле обязательное',
             validate: (value) =>
-              getValues().password === value || "Passwords need to match",
+              getValues().password === value || 'Пароли не совпадают',
           })}
         />
       </FormRow>
       <FormRow>
         <Button onClick={reset} type="reset" $variation="secondary">
-          Cancel
+          Отмена
         </Button>
-        <Button disabled={isUpdating}>Update password</Button>
+        <Button disabled={isUpdating}>Обновить пароль</Button>
       </FormRow>
     </Form>
   );

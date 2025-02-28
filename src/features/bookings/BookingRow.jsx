@@ -7,18 +7,24 @@ import Table from '../../ui/Table';
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import Menus from '../../ui/Menus';
-import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from 'react-icons/hi2';
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { useDeleteBooking } from './useDeleteBooking';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import { ru } from 'date-fns/locale';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: 'Sono';
+  font-family: 'Zen Kaku Gothic New';
 `;
 
 const Stacked = styled.div`
@@ -37,7 +43,7 @@ const Stacked = styled.div`
 `;
 
 const Amount = styled.div`
-  font-family: 'Sono';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: 500;
 `;
 
@@ -56,9 +62,9 @@ function BookingRow({
   },
 }) {
   const statusToTagName = {
-    unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
+    'Не подтвержден': 'blue',
+    Зарегестрирован: 'green',
+    Выезд: 'silver',
   };
   const navigate = useNavigate();
   const { checkout, isCheckingout } = useCheckout();
@@ -75,10 +81,14 @@ function BookingRow({
 
       <Stacked>
         <span>
-          {isToday(new Date(startDate)) ? 'Today' : formatDistanceFromNow(startDate)} &rarr; {numNights} night stay
+          {isToday(new Date(startDate))
+            ? 'Сегодня'
+            : formatDistanceFromNow(startDate)}
+          &rarr; {numNights} ночей
         </span>
         <span>
-          {format(new Date(startDate), 'MMM dd yyyy')} &mdash; {format(new Date(endDate), 'MMM dd yyyy')}
+          {format(new Date(startDate), 'MMM dd yyyy', { locale: ru })} &mdash;{' '}
+          {format(new Date(endDate), 'MMM dd yyyy', { locale: ru })}
         </span>
       </Stacked>
 
@@ -89,29 +99,43 @@ function BookingRow({
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
           <Menus.List id={bookingId}>
-            <Menus.Button icon={<HiEye />} onClick={() => navigate(`/bookings/${bookingId}`)}>
-              See details
+            <Menus.Button
+              icon={<HiEye />}
+              onClick={() => navigate(`/bookings/${bookingId}`)}
+            >
+              Подробности
             </Menus.Button>
 
             {status === 'unconfirmed' && (
-              <Menus.Button icon={<HiArrowDownOnSquare />} onClick={() => navigate(`/checkin/${bookingId}`)}>
-                Check in
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                onClick={() => navigate(`/checkin/${bookingId}`)}
+              >
+                Зарегестрировать
               </Menus.Button>
             )}
             {status === 'checked-in' && (
-              <Menus.Button disabled={isCheckingout} onClick={() => checkout(bookingId)} icon={<HiArrowUpOnSquare />}>
-                Check out
+              <Menus.Button
+                disabled={isCheckingout}
+                onClick={() => checkout(bookingId)}
+                icon={<HiArrowUpOnSquare />}
+              >
+                Выезд
               </Menus.Button>
             )}
             <Modal.Open opens="delete">
-              <Menus.Button disabled={isDeleting} $icon={<HiTrash />}>
-                Delete booking
+              <Menus.Button disabled={isDeleting} icon={<HiTrash />}>
+                Удалить бронирование
               </Menus.Button>
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
         <Modal.Window name="delete">
-          <ConfirmDelete resourceName="booking" disabled={isDeleting} onConfirm={() => deleteBooking(bookingId)} />
+          <ConfirmDelete
+            resourceName="booking"
+            disabled={isDeleting}
+            onConfirm={() => deleteBooking(bookingId)}
+          />
         </Modal.Window>
       </Modal>
     </Table.Row>

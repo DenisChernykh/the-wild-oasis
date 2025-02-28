@@ -6,8 +6,15 @@ import { useSettings } from './useSetting';
 import { useUpdateSetting } from './useUpdateSetting';
 
 function UpdateSettingsForm() {
-  const { isLoading, settings: { breakfastPrice, maxBookingLength, maxGuestsPerBooking, minBookingLength } = {} } =
-    useSettings();
+  const {
+    isLoading,
+    settings: {
+      breakfastPrice,
+      maxBookingLength,
+      maxGuestsPerBooking,
+      minBookingLength,
+    } = {},
+  } = useSettings();
 
   const { isUpdating, updateSetting } = useUpdateSetting();
 
@@ -21,7 +28,7 @@ function UpdateSettingsForm() {
 
   return (
     <Form>
-      <FormRow label="Minimum nights/booking">
+      <FormRow label="Минимум ночей">
         <Input
           disabled={isUpdating}
           type="number"
@@ -30,7 +37,7 @@ function UpdateSettingsForm() {
           onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
-      <FormRow label="Maximum nights/booking">
+      <FormRow label="Максимум ночей">
         <Input
           disabled={isUpdating}
           type="number"
@@ -39,7 +46,7 @@ function UpdateSettingsForm() {
           onBlur={(e) => handleUpdate(e, 'maxBookingLength')}
         />
       </FormRow>
-      <FormRow label="Maximum guests/booking">
+      <FormRow label="Максимум гостей">
         <Input
           disabled={isUpdating}
           type="number"
@@ -48,7 +55,7 @@ function UpdateSettingsForm() {
           onBlur={(e) => handleUpdate(e, 'maxGuestsPerBooking')}
         />
       </FormRow>
-      <FormRow label="Breakfast price">
+      <FormRow label="Цена завтрака">
         <Input
           disabled={isUpdating}
           type="number"

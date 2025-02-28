@@ -11,6 +11,7 @@ import DataItem from '../../ui/DataItem';
 import { Flag } from '../../ui/Flag';
 
 import { formatDistanceFromNow, formatCurrency } from '../../utils/helpers';
+import { ru } from 'date-fns/locale';
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -45,7 +46,7 @@ const Header = styled.header`
   }
 
   & span {
-    font-family: 'Sono';
+    font-family: 'Zen Kaku Gothic New';
     font-size: 2rem;
     margin-left: 4px;
   }
@@ -76,8 +77,10 @@ const Price = styled.div`
   border-radius: var(--border-radius-sm);
   margin-top: 2.4rem;
 
-  background-color: ${(props) => (props.$isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')};
-  color: ${(props) => (props.$isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)')};
+  background-color: ${(props) =>
+    props.$isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)'};
+  color: ${(props) =>
+    props.$isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)'};
 
   & p:last-child {
     text-transform: uppercase;
@@ -123,14 +126,23 @@ function BookingDataBox({ booking }) {
         <div>
           <HiOutlineHomeModern />
           <p>
-            {numNights} nights in Cabin <span>{cabinName}</span>
+            {numNights}{' '}
+            {numNights === 1
+              ? 'ночь'
+              : numNights >= 2 && numNights <= 4
+              ? 'ночи'
+              : 'ночей'}{' '}
+            в коттедже <span>{cabinName}</span>
           </p>
         </div>
 
         <p>
-          {format(new Date(startDate), 'EEE, MMM dd yyyy')} (
-          {isToday(new Date(startDate)) ? 'Today' : formatDistanceFromNow(startDate)}) &mdash;{' '}
-          {format(new Date(endDate), 'EEE, MMM dd yyyy')}
+          {format(new Date(startDate), 'EEE, MMM dd yyyy', { locale: ru })} (
+          {isToday(new Date(startDate))
+            ? 'Today'
+            : formatDistanceFromNow(startDate)}
+          ) &mdash;{' '}
+          {format(new Date(endDate), 'EEE, MMM dd yyyy', { locale: ru })}
         </p>
       </Header>
 
@@ -138,37 +150,55 @@ function BookingDataBox({ booking }) {
         <Guest>
           {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
           <p>
-            {guestName} {numGuests > 1 ? `+ ${numGuests - 1} guests` : ''}
+            {guestName}{' '}
+            {numGuests > 1 && numGuests - 1 === 1
+              ? 'гость'
+              : numGuests - 1 >= 2 && numGuests - 1 <= 4
+              ? `+ ${numGuests - 1} гостя`
+              : numGuests - 1 > 5
+              ? `
+								+ ${numGuests - 1} гостей
+							`
+              : ''}
           </p>
           <span>&bull;</span>
           <p>{email}</p>
           <span>&bull;</span>
-          <p>National ID {nationalID}</p>
+          <p>Национальный идентификатор {nationalID}</p>
         </Guest>
 
         {observations && (
-          <DataItem icon={<HiOutlineChatBubbleBottomCenterText />} label="Observations">
+          <DataItem
+            icon={<HiOutlineChatBubbleBottomCenterText />}
+            label="Замечание"
+          >
             {observations}
           </DataItem>
         )}
 
-        <DataItem icon={<HiOutlineCheckCircle />} label="Breakfast included?">
-          {hasBreakfast ? 'Yes' : 'No'}
+        <DataItem icon={<HiOutlineCheckCircle />} label="Завтрак включен?">
+          {hasBreakfast ? 'Да' : 'Нет'}
         </DataItem>
 
         <Price $isPaid={isPaid}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
+          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Общая цена`}>
             {formatCurrency(totalPrice)}
 
-            {hasBreakfast && ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(extrasPrice)} breakfast)`}
+            {hasBreakfast &&
+              ` (${formatCurrency(cabinPrice)} жилье + ${formatCurrency(
+                extrasPrice
+              )} завтрак)`}
           </DataItem>
 
-          <p>{isPaid ? 'Paid' : 'Will pay at property'}</p>
+          <p>{isPaid ? 'Оплачено' : 'Оплата при заселении'}</p>
         </Price>
       </Section>
 
       <Footer>
-        <p>Booked {format(new Date(created_at), 'EEE, MMM dd yyyy, p')}</p>
+        <p>
+          Забронировано{' '}
+          {format(new Date(created_at), 'EEE, MMM dd yyyy, p', { locale: ru })}
+        </p>
       </Footer>
     </StyledBookingDataBox>
   );

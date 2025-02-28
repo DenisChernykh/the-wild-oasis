@@ -7,7 +7,7 @@ function AddCabin() {
     <div>
       <Modal>
         <Modal.Open opens="cabin-form">
-          <Button>Add new cabin</Button>
+          <Button>Добавить новое жилье</Button>
         </Modal.Open>
         <Modal.Window name="cabin-form">
           <CreateCabinForm />

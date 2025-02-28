@@ -2,11 +2,7 @@ import styled from 'styled-components';
 import { formatCurrency } from '../../utils/helpers';
 import CreateCabinForm from '../cabins/CreateCabinForm';
 import { useDeleteCabin } from './useDeleteCabin';
-import {
-  HiPencil,
-  HiSquare2Stack,
-  HiTrash,
-} from 'react-icons/hi2';
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
 import { useCreateCabin } from './useCreateCabin';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
@@ -38,16 +34,16 @@ const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: 'Sono';
+  font-family: 'Zen Kaku Gothic New';
 `;
 
 const Price = styled.div`
-  font-family: 'Sono';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: 600;
 `;
 
 const Discount = styled.div`
-  font-family: 'Sono';
+  font-family: 'Zen Kaku Gothic New';
   font-weight: 500;
   color: var(--color-green-700);
 `;
@@ -62,10 +58,8 @@ function CabinRow({ cabin }) {
     discount,
     description,
   } = cabin;
-  const { isDeleting, deleteCabin } =
-    useDeleteCabin();
-  const { isCreating, createCabin } =
-    useCreateCabin();
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
 
   function handleDuplicates() {
     createCabin({
@@ -82,14 +76,10 @@ function CabinRow({ cabin }) {
     <Table.Row>
       <Img src={image} />
       <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>
-        {formatCurrency(regularPrice)}
-      </Price>
+      <div>Вместимость до {maxCapacity} гостей</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? (
-        <Discount>
-          {formatCurrency(discount)}
-        </Discount>
+        <Discount>{formatCurrency(discount)}</Discount>
       ) : (
         <span>&mdash;</span>
       )}
@@ -103,35 +93,26 @@ function CabinRow({ cabin }) {
                 disabled={isCreating}
                 icon={<HiSquare2Stack />}
               >
-                Duplicate
+                Дублировать
               </Menus.Button>
               <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>
-                  Edit
-                </Menus.Button>
+                <Menus.Button icon={<HiPencil />}>Изменить</Menus.Button>
               </Modal.Open>
               <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>
-                  {' '}
-                  Delete
-                </Menus.Button>
+                <Menus.Button icon={<HiTrash />}>Удалить</Menus.Button>
               </Modal.Open>
             </Menus.List>
           </Menus.Menu>
 
           <Modal.Window name="edit">
-            <CreateCabinForm
-              cabinToEdit={cabin}
-            />
+            <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
 
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"
               disabled={isDeleting}
-              onConfirm={() =>
-                deleteCabin(cabinId)
-              }
+              onConfirm={() => deleteCabin(cabinId)}
             />
           </Modal.Window>
         </Modal>

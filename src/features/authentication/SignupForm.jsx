@@ -25,63 +25,69 @@ function SignupForm() {
   }
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormRow label="Full name" error={errors?.fullName?.message}>
+      <FormRow label="Имя" error={errors?.fullName?.message}>
         <Input
           type="text"
           disabled={isLoading}
           id="fullName"
-          {...register('fullName', { required: 'This field is required' })}
+          {...register('fullName', { required: 'Это обязательное поле' })}
         />
       </FormRow>
 
-      <FormRow label="Email address" error={errors?.email?.message}>
+      <FormRow label="Email" error={errors?.email?.message}>
         <Input
           disabled={isLoading}
           type="email"
           id="email"
           {...register('email', {
-            required: 'This field is required',
+            required: 'Это обязательное поле',
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'Please provide a valid email address',
+              message: 'Пожалуйста, введите верный email',
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Password (min 8 characters)" error={errors?.password?.message}>
+      <FormRow
+        label="Пароль (минимум 6 символов)"
+        error={errors?.password?.message}
+      >
         <Input
           disabled={isLoading}
           type="password"
           id="password"
           {...register('password', {
-            required: 'This field is required',
+            required: 'Это поле обязательное',
             minLength: {
-              value: 8,
-              message: 'Password needs a minimum of 8 characters',
+              value: 6,
+              message: 'Пароль должен быть минимум 6 символов',
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Repeat password" error={errors?.passwordConfirm?.message}>
+      <FormRow
+        label="Повторите пароль"
+        error={errors?.passwordConfirm?.message}
+      >
         <Input
           type="password"
           id="passwordConfirm"
           disabled={isLoading}
           {...register('passwordConfirm', {
-            required: 'This field is required',
-            validate: (value) => value === getValues().password || 'Passwords need to match',
+            required: 'Это поле обязательное',
+            validate: (value) =>
+              value === getValues().password || 'Пароли не совпадают',
           })}
         />
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button disabled={isLoading} $variation="secondary" type="reset">
-          Cancel
+          Отмена
         </Button>
-        <Button disabled={isLoading}>Create new user</Button>
+        <Button disabled={isLoading}>Создать нового пользователя</Button>
       </FormRow>
     </Form>
   );

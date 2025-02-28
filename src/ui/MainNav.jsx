@@ -60,32 +60,32 @@ function MainNav() {
         <li>
           <StyledNavLink to="/dashboard">
             <HiOutlineHome />
-            <span>Home</span>
+            <span>Главная</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/bookings">
             <HiOutlineCalendarDays />
-            <span>Bookings</span>
+            <span>Бронирование</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/cabins">
             <HiOutlineHomeModern />
-            <span>Cabins</span>
+            <span>Жилье</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/users">
             <HiOutlineUsers />
-            <span>Users</span>
+            <span>Пользователи</span>
           </StyledNavLink>
         </li>
 
         <li>
           <StyledNavLink to="/settings">
             <HiOutlineCog6Tooth />
-            <span>Settings</span>
+            <span>Настройки</span>
           </StyledNavLink>
         </li>
       </NavList>

@@ -63,7 +63,7 @@ const GlobalStyles = createGlobalStyle`
 --color-grey-900: #f9fafb;
 
 --color-blue-100: #075985;
---color-blue-700: #e0f2fe; 
+--color-blue-700: #e0f2fe;
 --color-green-100: #166534;
 --color-green-700: #dcfce7;
 --color-yellow-100: #854d0e;
@@ -121,7 +121,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Sawarabi Gothic", sans-serif;
   color: var(--color-grey-700);
 
   transition: color 0.3s, background-color 0.3s;
